@@ -1,0 +1,462 @@
+/* ==========================================================
+   Atelier Tang - style.css
+   Nessuna immagine esterna: texture di tessuto fatte in CSS.
+   Palette: inchiostro, gesso, filo rosso, lana grigia, lino.
+   ========================================================== */
+
+:root {
+  --ink: #1c2330;
+  --ink-soft: #3d4657;
+  --chalk: #f3f3f0;
+  --paper: #ffffff;
+  --thread: #8c1d2c;
+  --thread-dark: #6e1722;
+  --wool: #c9cdd2;
+  --linen: #e6dccb;
+  --night: #1f2b4a;
+  --line: #d3d6d9;
+
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --space: clamp(2.5rem, 6vw, 5rem);
+  --radius: 4px;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--chalk);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 .75rem;
+}
+h1 { font-size: clamp(2.1rem, 5.5vw, 3.6rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); }
+h3 { font-size: 1.2rem; }
+
+p { margin: 0 0 1rem; max-width: 68ch; }
+ul, ol { padding-left: 1.25rem; }
+img { max-width: 100%; height: auto; }
+address { font-style: normal; margin-bottom: 1rem; }
+
+a { color: var(--thread); text-underline-offset: .18em; }
+a:hover { color: var(--thread-dark); }
+
+:focus-visible {
+  outline: 3px solid var(--night);
+  outline-offset: 3px;
+}
+
+.container {
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: .5rem;
+  top: -4rem;
+  padding: .6rem 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  z-index: 100;
+}
+.skip-link:focus { top: .5rem; }
+
+/* ---------- Header e navigazione ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem 1rem;
+  padding-block: .6rem;
+}
+
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.logo-name { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; }
+.logo-sub { font-size: .8rem; color: var(--ink-soft); }
+
+.main-nav { width: 100%; }
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.main-nav a {
+  display: block;
+  padding: .45rem .7rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.main-nav a:hover,
+.main-nav a[aria-current="page"] { border-bottom-color: var(--thread); }
+.main-nav .nav-login {
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+}
+.main-nav .nav-login:hover { background: var(--ink); color: var(--paper); }
+
+/* Il pulsante del menu compare solo se JavaScript e' attivo (degradazione elegante) */
+.nav-toggle { display: none; }
+
+html.js .nav-toggle {
+  display: inline-block;
+  padding: .5rem 1rem;
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+html.js .main-nav { display: none; }
+html.js .main-nav.is-open { display: block; }
+html.js .main-nav.is-open ul { flex-direction: column; }
+
+@media (min-width: 62em) {
+  .main-nav { width: auto; }
+  html.js .nav-toggle { display: none; }
+  html.js .main-nav,
+  html.js .main-nav.is-open { display: block; }
+  html.js .main-nav.is-open ul { flex-direction: row; }
+}
+
+/* ---------- Bottoni ---------- */
+.btn {
+  display: inline-block;
+  padding: .75rem 1.4rem;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--thread);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.btn-primary { background: var(--thread); color: #fff; }
+.btn-primary:hover { background: var(--thread-dark); border-color: var(--thread-dark); color: #fff; }
+.btn-secondary { background: transparent; color: var(--thread); }
+.btn-secondary:hover { background: var(--thread); color: #fff; }
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+/* ---------- Sezioni ---------- */
+.section { padding-block: var(--space); }
+.section-alt { background: var(--paper); border-block: 1px solid var(--line); }
+.section-intro { color: var(--ink-soft); margin-bottom: 2rem; }
+
+.two-col {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+@media (min-width: 48em) {
+  .two-col { grid-template-columns: 1fr 1fr; gap: 3rem; }
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+/* ---------- Hero: gessato (il segno distintivo del sito) ---------- */
+.hero {
+  padding-block: var(--space);
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0, transparent 38px,
+      rgba(28, 35, 48, .07) 38px, rgba(28, 35, 48, .07) 40px),
+    var(--chalk);
+}
+.hero-inner {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 48em) {
+  .hero-inner { grid-template-columns: 1.15fr .85fr; }
+}
+.hero-lead { font-size: 1.2rem; color: var(--ink-soft); }
+
+.hero-figure { margin: 0; }
+.hero-cloth {
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, transparent 49.6%, rgba(255, 255, 255, .85) 49.6%, rgba(255, 255, 255, .85) 50.4%, transparent 50.4%),
+    repeating-linear-gradient(90deg,
+      var(--night) 0, var(--night) 14px,
+      #2b3a60 14px, #2b3a60 15px,
+      var(--night) 15px, var(--night) 29px,
+      #e8e8ea 29px, #e8e8ea 30px);
+  box-shadow: 0 0 0 8px var(--paper), 0 0 0 9px var(--line);
+}
+figcaption { margin-top: .6rem; font-size: .9rem; color: var(--ink-soft); }
+
+/* ---------- Atelier ---------- */
+.values { list-style: none; padding: 0; margin: 1.25rem 0 0; }
+.values li {
+  padding: .4rem 0 .4rem 1.5rem;
+  border-bottom: 1px dashed var(--wool);
+  position: relative;
+}
+.values li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.1rem;
+  width: .8rem;
+  border-top: 2px solid var(--thread);
+}
+
+.fabric-table {
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  background:
+    repeating-linear-gradient(45deg, rgba(0,0,0,.06) 0, rgba(0,0,0,.06) 2px, transparent 2px, transparent 8px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.35) 0, rgba(255,255,255,.35) 2px, transparent 2px, transparent 8px),
+    var(--linen);
+  border: 1px solid var(--line);
+}
+.atelier-figure { margin: 0; }
+
+/* ---------- Servizi: bordo tratteggiato = cucitura ---------- */
+.service {
+  padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+  background: var(--chalk);
+  border: 2px dashed var(--wool);
+  border-left: 4px solid var(--thread);
+  border-radius: var(--radius);
+}
+.service p { margin-bottom: 0; color: var(--ink-soft); }
+
+/* ---------- Processo: sequenza reale, numerata ---------- */
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  counter-reset: passo;
+}
+.steps li {
+  counter-increment: passo;
+  padding-top: 1rem;
+  border-top: 2px solid var(--ink);
+}
+.steps li::before {
+  content: counter(passo);
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--thread);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.steps p { color: var(--ink-soft); }
+
+/* ---------- Realizzazioni: campioni di tessuto in CSS ---------- */
+.gallery { margin-top: 1.5rem; }
+.gallery figure { margin: 0; }
+.swatch {
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+.swatch-lana {
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.25) 0, rgba(255,255,255,.25) 3px, transparent 3px, transparent 6px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 3px, transparent 3px, transparent 6px),
+    #8d939b;
+}
+.swatch-cotone {
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0, rgba(255,255,255,.5) 1px, transparent 1px, transparent 6px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.5) 0, rgba(255,255,255,.5) 1px, transparent 1px, transparent 6px),
+    #a9c4e0;
+}
+.swatch-notte {
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.6) 0, rgba(255,255,255,.6) 1px, transparent 1px, transparent 18px),
+    var(--night);
+}
+.swatch-lino {
+  background:
+    repeating-linear-gradient(0deg, rgba(120,95,60,.18) 0, rgba(120,95,60,.18) 1px, transparent 1px, transparent 5px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0, rgba(255,255,255,.35) 1px, transparent 1px, transparent 9px),
+    var(--linen);
+}
+
+/* ---------- Recensioni ---------- */
+.reviews { margin-top: 1.5rem; }
+blockquote {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--paper);
+  border-left: 4px solid var(--thread);
+  border-radius: var(--radius);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+}
+blockquote p { margin-bottom: .75rem; }
+blockquote footer {
+  font-family: var(--font-sans);
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+.note-link { margin-top: 1.5rem; }
+
+/* ---------- Form ---------- */
+form {
+  padding: 1.5rem;
+  background: var(--chalk);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+fieldset { border: 0; margin: 0 0 1.25rem; padding: 0; min-width: 0; }
+legend {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0;
+  margin-bottom: .75rem;
+}
+.field { margin-bottom: 1rem; max-width: none; }
+.field label { display: block; font-weight: 600; margin-bottom: .25rem; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: .65rem .75rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink-soft);
+  border-radius: var(--radius);
+}
+textarea { resize: vertical; min-height: 8rem; }
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--night);
+  outline-offset: 2px;
+}
+
+.field-check { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem; }
+.field-check input { width: 1.25rem; height: 1.25rem; margin-top: .25rem; }
+.field-check label { flex: 1; font-weight: 400; margin: 0; }
+.field-check .error { flex-basis: 100%; }
+
+.hint { display: block; margin-top: .25rem; font-size: .9rem; color: var(--ink-soft); }
+.error { display: block; margin-top: .25rem; font-size: .9rem; font-weight: 600; color: #a1001a; }
+.error:empty { display: none; }
+[aria-invalid="true"] { border: 2px solid #a1001a; }
+
+.flash {
+  padding: .9rem 1.1rem;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius);
+  border-left: 5px solid;
+  background: var(--paper);
+  max-width: none;
+}
+.flash-ok { border-color: #1b6b3a; }
+.flash-errore { border-color: #a1001a; }
+
+/* ---------- FAQ ---------- */
+details {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: .75rem;
+}
+summary {
+  padding: .9rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+details[open] summary { border-bottom: 1px solid var(--line); }
+details p { padding: .9rem 1.1rem 0; }
+
+/* ---------- Orari ---------- */
+.orari {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--chalk);
+}
+.orari caption { text-align: left; font-weight: 700; padding-bottom: .5rem; }
+.orari th, .orari td {
+  padding: .6rem .75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.orari thead th { border-bottom: 2px solid var(--ink); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding-block: 2.5rem;
+  background: var(--ink);
+  color: #e4e6ea;
+}
+.site-footer a { color: #fff; }
+.footer-brand { font-family: var(--font-serif); font-size: 1.3rem; }
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+/* ---------- Preferenze utente e stampa ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@media print {
+  .site-header, .skip-link, form, .hero-actions, .site-footer ul { display: none; }
+  body { background: #fff; color: #000; }
+  .section, .hero { padding-block: 1rem; background: none; }
+  a { color: #000; }
+}
