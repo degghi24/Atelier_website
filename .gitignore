@@ -1,0 +1,9 @@
+# Escludi configurazioni locali e credenziali DB personali
+app/config_locale.php
+
+# Escludi file temporanei di sistema/OS
+.DS_Store
+Thumbs.db
+
+# Escludi log di XAMPP o file di sessione se salvati in locale
+*.log
