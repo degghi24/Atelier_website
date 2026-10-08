@@ -16,4 +16,6 @@
 - [ ] footer con:
     - orari
     - contatti
+    - indirizzo
+  
 
