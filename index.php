@@ -204,6 +204,7 @@ header('Content-Type: text/html; charset=utf-8');
         </div>
       </div>
     </section>
+<!--
 
     <section class="section" aria-labelledby="titolo-recensioni">
       <div class="container">
@@ -227,7 +228,7 @@ header('Content-Type: text/html; charset=utf-8');
         </p>
       </div>
     </section>
-
+-->
     <section id="prenota" class="section section-alt" aria-labelledby="titolo-prenota">
       <div class="container two-col">
         <div>
