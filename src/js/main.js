@@ -27,7 +27,7 @@
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menu.classList.contains('is-open')) {
-        menu.classList.remove('is-open');
+        menu.classList.remove('is-openg');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.focus();
       }
