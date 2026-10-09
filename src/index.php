@@ -78,8 +78,8 @@ header('Content-Type: text/html; charset=utf-8');
   <title>Atelier Tang | Sartoria artigianale su misura a Padova</title>
   <meta name="description" content="Atelier Tang a Padova: sartoria artigianale su misura per abiti, giacche, camicie e abiti da cerimonia. Prenota una consulenza e una prova." />
   <meta name="keywords" content="sartoria Padova, abiti su misura, sartoria artigianale, abito da sposo, riparazioni sartoriali, atelier Padova" />
-  <link rel="stylesheet" href="src/css/style.css" />
-  <script src="src/js/main.js" defer="defer"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/main.js" defer="defer"></script>
 </head>
 
 <body id="top">
