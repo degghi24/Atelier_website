@@ -1,0 +1,43 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"              # sito su http://localhost:8080
+    volumes:
+      - ./src:/var/www/html    # la cartella src è la radice del sito
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:11.8
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - dbdata:/var/lib/mysql                          # i dati sopravvivono ai riavvii
+      - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8081:80"              # phpMyAdmin su http://localhost:8081
+    environment:
+      PMA_HOST: db
+    depends_on:
+      - db
+
+volumes:
+  dbdata:
